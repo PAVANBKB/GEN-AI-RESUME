@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import styles from "./Login.module.scss";
 
 function Login() {
@@ -7,10 +7,10 @@ function Login() {
         email: "",
         password: "",
     });
-
+    const navigate=useNavigate()
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
+
         setForm(prev => ({
             ...prev,
             [name]: value
@@ -20,6 +20,7 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Login Data:", form);
+        navigate('/')
     };
 
     return (
@@ -57,7 +58,7 @@ function Login() {
                         />
                     </div>
 
-                    <button type="submit" className={styles.button}>
+                    <button type="submit" className="button">
                         Sign In
                     </button>
                 </form>

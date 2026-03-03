@@ -51,26 +51,7 @@
   }
 }
 
-button {
-  width: 100%;
-  padding: 0.9rem;
-  border-radius: 8px;
-  border: none;
-  background: #6c63ff;
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
 
-  &:hover {
-    background: #574fd6;
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
 
 .loginText {
   margin-top: 1.5rem;
