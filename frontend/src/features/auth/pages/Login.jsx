@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import styles from "./Login.module.scss";
+import { useAuth } from "../hooks/useAuth";
 
 function Login() {
     const [form, setForm] = useState({
         email: "",
         password: "",
     });
-    const navigate=useNavigate()
+    const { userLogin } = useAuth()
+    const navigate = useNavigate()
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -15,11 +17,12 @@ function Login() {
             ...prev,
             [name]: value
         }))
+
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Login Data:", form);
+        await userLogin({ email: form.email, password: form.password })
         navigate('/')
     };
 
