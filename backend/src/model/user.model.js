@@ -14,7 +14,8 @@ const userSchema=new mongoose.Schema({
     },
     password:{
         type:String,
-        required:[true,'email is required']
+        required:[true,'email is required'],
+        select:false
     }
 })
 userSchema.index({username:1,email:1},{unique:true})
