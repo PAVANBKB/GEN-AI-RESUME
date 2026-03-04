@@ -4,6 +4,9 @@ import { context } from "../context/AuthContext";
 
 export function useAuth() {
     const { loading, setLoading, user, setUser } = useContext(context)
+    //NOTE - flow of the code 
+    
+    /** loding will true call api loding false return api data */
     async function handelUserLogin({ email, password }) {
         try {
             setLoading(true)
@@ -35,8 +38,6 @@ export function useAuth() {
             setLoading(true)
             const res = await logout()
             setUser(null)
-            
-
         } catch (err) {
             throw err
         }finally{

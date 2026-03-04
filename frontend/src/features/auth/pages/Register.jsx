@@ -21,8 +21,9 @@ function Register() {
 
         console.log("Form Data:", formData);
 
-        // TODO: Call API here
+        //NOTE - call api here
         await handelRegisterUser(formData)
+        //navigate
         navigate("/");
     };
 
