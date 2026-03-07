@@ -17,8 +17,9 @@ app.use(
 
 /** require all routes her  */
 const authRoute = require('./routes/auth.route');
+const interviewRoute = require('./routes/interview.routes');
 
 /**using all routes here */
 app.use('/api/auth',authRoute)
-
+app.use('/api/interview',interviewRoute)
 module.exports=app
