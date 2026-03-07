@@ -40,6 +40,7 @@ const interviewReportSchema = z.object({
     }))
         .min(1)
         .describe("the preparation plan for the candidate to prepare for the interview"),
+    title:z.string().describe("the title of the interview report, usually the job title")
 
 
 })
