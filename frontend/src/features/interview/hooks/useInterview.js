@@ -11,6 +11,7 @@ export function useInterview() {
 
             const res = await generateInterviewReport({ jobdescribe, selfdescribe, resumeFile })
             setReport(res.interviewReport)
+            return res.interviewReport
         } catch (err) {
             console.log(err);
             throw err
@@ -18,6 +19,7 @@ export function useInterview() {
         } finally {
             setLoading(false)
         }
+
     }
     async function generateReportById({ interviewId }) {
         setLoading(true)
@@ -25,6 +27,7 @@ export function useInterview() {
 
             const res = await getInterviewReportById({ interviewId })
             setReport(res.interviewReport)
+            return res.interviewReport
         } catch (err) {
             console.log(err);
             throw err
@@ -36,17 +39,16 @@ export function useInterview() {
     async function getUserAllReports() {
         setLoading(true)
         try {
-
+            // FIX: Backend returns userAllReports, not interviewReport
             const res = await getInterviewAllReport()
-            setReports(res.interviewReport)
+            setReports(res.userAllReports)
+            return res.userAllReports
         } catch (err) {
             console.log(err);
             throw err
-
         } finally {
             setLoading(false)
         }
-
     }
     return { generateReport, getUserAllReports, generateReportById, loading, report, reports }
 }

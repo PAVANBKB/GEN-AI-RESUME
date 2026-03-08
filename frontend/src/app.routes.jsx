@@ -10,11 +10,11 @@ import Interview from './features/interview/pages/interview'
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <Protected><Home /></Protected>
+        element: <><Home /></>
     },
 
     {
-        path: '/interview',
+        path: '/interview/:interviewId',
         element: <Interview />
     },
 

@@ -16,7 +16,7 @@ const uploadResume = (req, res, next) => {
     })
 }
 /**
- * @route POST /api/interview
+ * @route POST /api/interview/
  * @description it will take resume desc,job dec and user self intro 
  * @acess private
  */

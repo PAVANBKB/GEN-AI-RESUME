@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../style/interview.scss'
+import { useInterview } from '../hooks/useInterview'
+import { useParams } from 'react-router'
 
 const NAV_ITEMS = [
   {
@@ -85,69 +87,41 @@ const RoadMapDay = ({ day }) => (
   </div>
 )
 
+
+
 // ── Main Component ─────────────────────────────────
 
 const Interview = () => {
 
   const [activeNav, setActiveNav] = useState('technical')
-
+  const { generateReportById, report, loading } = useInterview()
   // Dummy Data (same schema as backend)
-  const [report] = useState({
-    matchScore: 82,
+  const { interviewId } = useParams()
+  useEffect(() => {
 
-    technicalQuestions: [
-      {
-        question: "What is Node.js?",
-        intention: "Check understanding of Node runtime.",
-        answer: "Node.js is a JavaScript runtime built on Chrome's V8 engine."
-      },
-      {
-        question: "Explain Event Loop.",
-        intention: "Test async architecture knowledge.",
-        answer: "Event loop allows Node.js to perform non-blocking operations."
-      }
-    ],
+    async function call() {
+      await generateReportById({ interviewId })
+      console.log(report);
 
-    behavioralQuestions: [
-      {
-        question: "Tell me about a challenging project.",
-        intention: "Evaluate problem solving ability.",
-        answer: "Describe a real project challenge and how you solved it."
-      },
-      {
-        question: "How do you handle tight deadlines?",
-        intention: "Understand time management.",
-        answer: "Explain prioritization and communication."
-      }
-    ],
+    }
+    call()
+  }, [interviewId])
 
-    preparationPlan: [
-      {
-        day: 1,
-        focus: "JavaScript Fundamentals",
-        tasks: [
-          "Closures",
-          "Promises",
-          "Async/Await"
-        ]
-      },
-      {
-        day: 2,
-        focus: "Node.js & Express",
-        tasks: [
-          "Middleware",
-          "Routing",
-          "Error Handling"
-        ]
-      }
-    ],
-
-    skillGaps: [
-      { skill: "Docker", severity: "high" },
-      { skill: "System Design", severity: "medium" },
-      { skill: "Testing", severity: "low" }
-    ]
-  })
+  // Guard conditions to handle loading and null report states
+  // FIX: Before this fix, the component would crash with "TypeError: Cannot read properties of null (reading 'matchScore')"
+  // because the API call to fetch the report had not completed yet when the component first rendered.
+  // Now we check if loading is true OR if report is null, and show a loading message until data is ready.
+  if (loading || !report) {
+    return (
+      <div className='interview-page'>
+        <div className='interview-layout' style={{ justifyContent: 'center', alignItems: 'center', padding: '2rem' }}>
+          <div style={{ textAlign: 'center', color: '#7d8590' }}>
+            <p>Loading interview report...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const scoreColor =
     report.matchScore >= 80

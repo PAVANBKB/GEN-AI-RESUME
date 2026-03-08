@@ -14,6 +14,9 @@ export function useAuth() {
             setLoading(true)
             const data = await login({ email, password })
             setUser(data.user)
+            // FIX: Store user in localStorage to persist session across page reloads
+            // This prevents 401 errors because we can check localStorage before calling /api/auth/getme
+            localStorage.setItem('user', JSON.stringify(data.user))
 
             return data.user
         } catch (err) {
@@ -40,6 +43,8 @@ export function useAuth() {
             setLoading(true)
             const res = await logout()
             setUser(null)
+            // FIX: Clear user from localStorage on logout
+            localStorage.removeItem('user')
         } catch (err) {
             throw err
         } finally {
@@ -59,9 +64,23 @@ export function useAuth() {
             setLoading(false)
         }
     }
+    /** 
+     * FIX: Before this fix, the app would make a /api/auth/getme call on every page load
+     * even when the user was not logged in, causing 401 Unauthorized errors.
+     * Now we check if user exists in localStorage before making the API call.
+     */
     useEffect(() => {
         async function getAndSetUser() {
-            await handelGetUser()
+            // Check if user was previously logged in (stored in localStorage)
+            const storedUser = localStorage.getItem('user')
+            if (storedUser) {
+                try {
+                    await handelGetUser()
+                } catch (err) {
+                    // Token invalid or expired, clear storage
+                    localStorage.removeItem('user')
+                }
+            }
         }
         getAndSetUser()
     }, [])
