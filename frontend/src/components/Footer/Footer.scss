@@ -1,0 +1,46 @@
+.landing-footer {
+    padding: 4rem 2rem;
+    background: #050505;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    &__content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+
+        @media (min-width: 768px) {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    &__logo {
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: #6366f1;
+    }
+
+    &__links {
+        display: flex;
+        gap: 2rem;
+
+        a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+
+    &__copy {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.3);
+    }
+}

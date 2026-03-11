@@ -7,15 +7,21 @@ import Interview from './features/interview/pages/interview'
 
 
 
+import LandingPage from './pages/LandingPage/LandingPage'
+
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <><Home /></>
+        element: <LandingPage />
+    },
+    {
+        path: '/generator',
+        element: <Protected><Home /></Protected>
     },
 
     {
         path: '/interview/:interviewId',
-        element: <Interview />
+        element: <Protected><Interview /></Protected>
     },
 
     {

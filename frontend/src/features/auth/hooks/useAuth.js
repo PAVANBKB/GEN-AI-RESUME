@@ -79,7 +79,10 @@ export function useAuth() {
                 } catch (err) {
                     // Token invalid or expired, clear storage
                     localStorage.removeItem('user')
+                    setLoading(false)
                 }
+            } else {
+                setLoading(false)
             }
         }
         getAndSetUser()
