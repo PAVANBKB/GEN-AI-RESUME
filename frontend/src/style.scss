@@ -1,15 +1,5 @@
-@use './style/FormButton.scss';
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@use './style/variables' as *;
+@use './style/globals';
 
-html,
-body,
-#root {
-    width: 100%;
-    background-color: rgb(36, 36, 36);
-    font-size: larger;
-    font-style: system-ui;
-}
+// Component specific styles will be imported here
+// or managed via their own SCSS files imported in JSX

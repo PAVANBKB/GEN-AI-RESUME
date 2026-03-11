@@ -3,16 +3,22 @@ import './Footer.scss';
 
 const Footer = () => {
     return (
-        <footer className="landing-footer">
-            <div className="landing-footer__content">
-                <div className="landing-footer__logo">GEN-AI RESUME</div>
-                <div className="landing-footer__links">
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                    <a href="#">Contact</a>
+        <footer className="footer">
+            <div className="container footer__container">
+                <div className="footer__left">
+                    <span className="logo-dot"></span>
+                    GEN-AI RESUME © {new Date().getFullYear()}
                 </div>
-                <div className="landing-footer__copy">
-                    &copy; {new Date().getFullYear()} GEN-AI RESUME. All rights reserved.
+                
+                <div className="footer__center">
+                    <a href="#">GitHub</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Terms</a>
+                </div>
+
+                <div className="footer__right">
+                    Design inspired by the future.
                 </div>
             </div>
         </footer>

@@ -1,0 +1,95 @@
+@use '../../style/variables' as *;
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(3, 3, 3, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    height: 70px;
+    display: flex;
+    align-items: center;
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    &__logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 800;
+        font-size: 1.25rem;
+        cursor: pointer;
+        letter-spacing: -0.02em;
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, $color-primary, $color-secondary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .circle {
+                width: 8px;
+                height: 8px;
+                background: white;
+                border-radius: 50%;
+            }
+        }
+
+        .text-dim {
+            opacity: 0.5;
+            font-weight: 400;
+        }
+    }
+
+    &__links {
+        display: flex;
+        gap: $spacing-md;
+
+        @media (max-width: $breakpoint-md) {
+            display: none;
+        }
+
+        a {
+            font-size: 0.9rem;
+            color: $color-text-dim;
+            font-weight: 500;
+            
+            &:hover {
+                color: white;
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+
+        .navbar__login {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: none;
+            
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        .btn--white {
+            padding: 0.5rem 1.25rem;
+            font-size: 0.9rem;
+        }
+    }
+}

@@ -1,46 +1,55 @@
-.landing-footer {
-    padding: 4rem 2rem;
-    background: #050505;
+@use '../../style/variables' as *;
+
+.footer {
+    padding: $spacing-lg 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: darken($color-bg, 2%);
 
-    &__content {
-        max-width: 1200px;
-        margin: 0 auto;
+    &__container {
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
-        gap: 2rem;
+        gap: $spacing-md;
 
-        @media (min-width: 768px) {
-            flex-direction: row;
-            justify-content: space-between;
+        @media (max-width: $breakpoint-md) {
+            flex-direction: column;
+            text-align: center;
         }
     }
 
-    &__logo {
-        font-weight: 800;
-        letter-spacing: 2px;
-        color: #6366f1;
+    &__left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: $color-text-dim;
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
     }
 
-    &__links {
+    &__center {
         display: flex;
-        gap: 2rem;
+        gap: $spacing-md;
 
         a {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.3s ease;
-
+            font-size: 0.8rem;
+            color: $color-text-dim;
+            
             &:hover {
                 color: white;
             }
         }
     }
 
-    &__copy {
-        font-size: 0.75rem;
-        color: rgba(255, 255, 255, 0.3);
+    &__right {
+        font-size: 0.8rem;
+        color: $color-text-dim;
+        font-style: italic;
     }
 }

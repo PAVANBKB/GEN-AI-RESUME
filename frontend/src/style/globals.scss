@@ -1,0 +1,112 @@
+@use './variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $color-bg;
+  color: $color-text;
+  font-family: $font-main;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: $transition-base;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+// Global Classes based on Image
+.section-padding {
+  padding: $spacing-xl 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: $border-radius-button;
+  font-weight: 600;
+  transition: $transition-base;
+  font-size: 1rem;
+
+  &--primary {
+    background-color: $color-primary;
+    color: white;
+    &:hover {
+      background-color: darken($color-primary, 5%);
+      transform: translateY(-2px);
+      box-shadow: $glow-primary;
+    }
+  }
+
+  &--secondary {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+
+  &--white {
+    background-color: white;
+    color: black;
+    &:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, $color-primary, $color-secondary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 2rem;
+  color: $color-primary;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: $spacing-md;
+}
