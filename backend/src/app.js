@@ -10,8 +10,8 @@ app.use(cookieParser());
 app.use(
     cors({
         origin: [
-            "http://localhost:5173", 
-            "http://localhost:5000", 
+            "http://localhost:5173",
+            "http://localhost:5000",
             "https://gen-ai-resume.onrender.com"
         ],
         credentials: true,
@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, '../public/dist')));
  * The "catchall" handler: for any request that doesn't 
  * match one above, send back React's index.html file.
  */
-app.get('(.*)', (req, res) => {
+app.get('*any', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/dist/index.html'));
 });
 
