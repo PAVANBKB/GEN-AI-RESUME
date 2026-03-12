@@ -27,7 +27,7 @@ app.use('/api/auth', authRoute);
 app.use('/api/interview', interviewRoute);
 
 /** Serve static files from the React app dist folder */
-app.use(express.static(path.join(__dirname, '../public/dist')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 /** 
  * The "catchall" handler: for any request that doesn't 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: `${import.meta.env.VITE_API_BASE_URL}/auth/`,
+    baseURL: `https://gen-ai-resume.onrender.com/api/auth/`,
     withCredentials: true
 })
 
