@@ -69,6 +69,17 @@ const QuestionCard = ({ item, index }) => {
   )
 }
 
+/*************  ✨ Windsurf Command ⭐  *************/
+/**
+ * A single day in the road map component.
+ * It displays a header with the day number and focus, and a list of tasks.
+ * @param {Object} day - an object with the following properties:
+ *   - day: the day number
+ *   - focus: the focus for the day
+ *   - tasks: an array of tasks for the day
+ * @returns {JSX.Element} a JSX element representing the day in the road map
+ */
+/*******  d1b067e8-c523-40fb-ad4f-8ca92c3afcbc  *******/
 const RoadMapDay = ({ day }) => (
   <div className='roadmap-day'>
     <div className='roadmap-day__header'>
