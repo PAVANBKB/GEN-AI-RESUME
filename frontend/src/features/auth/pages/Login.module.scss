@@ -29,6 +29,11 @@ $white: #ffffff;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
 }
 
 .header {

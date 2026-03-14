@@ -13,6 +13,11 @@
         overflow: hidden;
         opacity: 0;
 
+        @media (max-width: $breakpoint-md) {
+            padding: $spacing-lg $spacing-sm;
+            border-radius: 1.5rem;
+        }
+
         &__glow {
             position: absolute;
             top: 50%;
@@ -36,6 +41,11 @@
             font-weight: 800;
             margin-bottom: $spacing-md;
             color: white;
+
+            @media (max-width: $breakpoint-md) {
+                font-size: 1.75rem;
+                line-height: 1.2;
+            }
         }
 
         &__subtitle {
@@ -43,12 +53,22 @@
             color: $color-text-dim;
             margin-bottom: $spacing-xl;
             line-height: 1.6;
+
+            @media (max-width: $breakpoint-md) {
+                font-size: 0.9rem;
+                margin-bottom: $spacing-lg;
+            }
         }
 
         .btn--white {
             padding: 1.25rem 2.5rem;
             font-size: 1.1rem;
             border-radius: 2rem;
+
+            @media (max-width: $breakpoint-md) {
+                width: 100%;
+                padding: 1rem;
+            }
         }
     }
 }

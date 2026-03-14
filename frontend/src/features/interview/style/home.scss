@@ -21,6 +21,10 @@ $font-stack: 'Inter', system-ui, -apple-system, sans-serif;
     font-family: $font-stack;
     overflow-x: hidden;
     padding: 4rem 1.5rem;
+
+    @media (max-width: 768px) {
+        padding: 2rem 1rem;
+    }
 }
 
 // ── Background Effects ────────────────────────────────────────────────────────
@@ -83,6 +87,10 @@ $font-stack: 'Inter', system-ui, -apple-system, sans-serif;
         letter-spacing: -0.02em;
         line-height: 1.1;
 
+        @media (max-width: 768px) {
+            font-size: 2.25rem;
+        }
+
         .highlight {
             background: linear-gradient(to right, #f43f5e, #ec4899, #06b6d4);
             -webkit-background-clip: text;
@@ -97,6 +105,10 @@ $font-stack: 'Inter', system-ui, -apple-system, sans-serif;
         max-width: 600px;
         margin: 0 auto;
         line-height: 1.6;
+
+        @media (max-width: 768px) {
+            font-size: 1rem;
+        }
     }
 }
 
@@ -123,6 +135,10 @@ $font-stack: 'Inter', system-ui, -apple-system, sans-serif;
     gap: 1.5rem;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, border-color 0.3s ease;
+
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+    }
 
     &:hover {
         border-color: rgba($accent, 0.3);
@@ -419,6 +435,16 @@ $font-stack: 'Inter', system-ui, -apple-system, sans-serif;
     border-radius: 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
+
+    @media (max-width: 640px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+
+        .report-card__arrow {
+            display: none;
+        }
+    }
 
     &:hover {
         background: rgba($accent, 0.03);
