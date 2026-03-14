@@ -92,6 +92,8 @@ const interviewReportSchema = new mongoose.Schema({
         type: String,
         required: [true, 'title is required']
     }
+}, {
+    timestamps: true
 })
 
 module.exports = mongoose.model('interviewReport', interviewReportSchema)
