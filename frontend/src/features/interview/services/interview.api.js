@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL}/interview` : `http://localhost:3000/api/interview`,
+    baseURL: import.meta.env.PROD ? '/api/interview' : (import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL}/interview` : `http://localhost:3000/api/interview`),
     withCredentials: true
 })
 

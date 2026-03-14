@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL}/auth` : `http://localhost:3000/api/auth/`,
+    baseURL: import.meta.env.PROD ? '/api/auth' : (import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL}/auth` : `http://localhost:3000/api/auth/`),
     withCredentials: true
 })
 
