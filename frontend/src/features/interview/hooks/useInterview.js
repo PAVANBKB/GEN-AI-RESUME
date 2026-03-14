@@ -63,7 +63,22 @@ export function useInterview() {
             link.click()
         }
         catch (error) {
-            console.log(error)
+            console.log("PDF Download Error:", error)
+            if (error.response && error.response.data) {
+                // If it's a blob error, we need to read it as text
+                const reader = new FileReader();
+                reader.onload = () => {
+                    try {
+                        const errorData = JSON.parse(reader.result);
+                        alert(`Download Failed: ${errorData.message}`);
+                    } catch {
+                        alert("Download Failed: Something went wrong with PDF generation");
+                    }
+                };
+                reader.readAsText(error.response.data);
+            } else {
+                alert("Download Failed: Network Error");
+            }
         } finally {
             setLoading(false)
         }

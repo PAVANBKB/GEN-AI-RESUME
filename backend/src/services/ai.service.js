@@ -158,11 +158,13 @@ async function generatePdfFromHtml(htmlContent) {
 
     try {
         browser = await puppeteer.launch({
-            headless: "new",
+            headless: true,
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
             args: [
                 "--no-sandbox",
                 "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage"
+                "--disable-dev-shm-usage",
+                "--disable-gpu"
             ]
         });
 
@@ -190,8 +192,8 @@ async function generatePdfFromHtml(htmlContent) {
         return pdfBuffer;
 
     } catch (error) {
-        console.error("PDF generation failed:", error);
-        throw new Error("Failed to generate PDF");
+        console.error("PDF generation failed:", error.message, error.stack);
+        throw new Error(`Failed to generate PDF: ${error.message}`);
     } finally {
         if (browser) {
             await browser.close();

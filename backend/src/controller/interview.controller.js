@@ -134,7 +134,7 @@ async function genereateJobReadyPdfController(req, res) {
         console.log(err)
         return res.status(500).json({
             success: false,
-            message: "Something went wrong"
+            message: err.message || "Something went wrong"
         })
     }
 }
