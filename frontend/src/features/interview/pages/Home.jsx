@@ -3,8 +3,11 @@ import "../style/home.scss"
 import { useInterview } from '../hooks/useInterview'
 import { useNavigate } from 'react-router'
 import Loader from '../../../components/Loader/Loader'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 const Home = () => {
+    const container = useRef()
     const [selfDescription, setselfDescription] = useState("")
     const [jobDescription, setjobDescription] = useState("")
     const resumeFileRef = useRef()
@@ -21,6 +24,16 @@ const Home = () => {
     }
     call()
   }, [])
+
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    
+    tl.from(".page-header h1", { y: 30, opacity: 0, duration: 0.8 })
+      .from(".page-header p", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
+      .from(".form-card", { y: 40, opacity: 0, duration: 0.8, stagger: 0.2 }, "-=0.4")
+      .from(".action-bar", { scale: 0.9, opacity: 0, duration: 0.8 }, "-=0.4")
+      .from(".recent-reports", { y: 30, opacity: 0, duration: 0.8 }, "-=0.6");
+  }, { scope: container });
 
   const formatDate = (report) => {
     try {
@@ -47,112 +60,122 @@ const Home = () => {
     }
   };
 
-  return (
-        <main className='home-page'>
+    return (
+        <main className='home-page' ref={container}>
+            <div className="bg-grid"></div>
+            <div className="bg-glow"></div>
+            
             {loading && <Loader message="Analyzing Profile..." />}
 
-            {/* Page Header */}
-            <header className='page-header'>
-                <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>
-                <p>Let our AI analyze the job requirements and your unique profile to build a winning strategy.</p>
-            </header>
+            <div className="home-container">
+                {/* Page Header */}
+                <header className='page-header'>
+                    <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>
+                    <p>Let our AI analyze the job requirements and your unique profile to build a winning strategy tailored specifically for your next big move.</p>
+                </header>
 
-            {/* Main Card */}
-            <div className='interview-card'>
-                <div className='interview-card__body'>
-
-                    {/* Left Panel - Job Description */}
-                    <div className='panel panel--left'>
-                        <div className='panel__header'>
-                            <span className='panel__icon'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
-                            </span>
-                            <h2>Target Job Description</h2>
+                {/* Main Content Sections */}
+                <div className='dashboard-grid'>
+                    
+                    {/* Left Card - Job Description */}
+                    <div className='form-card'>
+                        <div className='form-card__header'>
+                            <div className='form-card__title-grp'>
+                                <span className='form-card__icon icon-box--job'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+                                </span>
+                                <h2>Target Job Description</h2>
+                            </div>
                             <span className='badge badge--required'>Required</span>
                         </div>
-                        <textarea
-                            onChange={(e) => setjobDescription(e.target.value)}
-                            className='panel__textarea'
-                            placeholder={`Paste the full job description here...\ne.g. 'Senior Frontend Engineer at Google requires proficiency in React, TypeScript, and large-scale system design...'`}
-                            maxLength={5000}
-                        />
-                        <div className='char-counter'>0 / 5000 chars</div>
+                        <div className="form-card__body">
+                            <textarea
+                                onChange={(e) => setjobDescription(e.target.value)}
+                                className='panel__textarea'
+                                placeholder={`Paste the full job description here...\ne.g. 'Senior Frontend Engineer at Google requires proficiency in React, TypeScript, and large-scale system design...'`}
+                                maxLength={5000}
+                                value={jobDescription}
+                            />
+                            <div className='char-counter'>{jobDescription.length} / 5000 chars</div>
+                        </div>
                     </div>
 
-                    {/* Vertical Divider */}
-                    <div className='panel-divider' />
-
-                    {/* Right Panel - Profile */}
-                    <div className='panel panel--right'>
-                        <div className='panel__header'>
-                            <span className='panel__icon'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
-                            </span>
-                            <h2>Your Profile</h2>
-                        </div>
-
-                        {/* Upload Resume */}
-                        <div className='upload-section'>
-                            <label className='section-label'>
-                                Upload Resume
-                                <span className='badge badge--best'>Best Results</span>
-                            </label>
-                            <label className='dropzone' htmlFor='resume'>
-                                <span className='dropzone__icon'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" /><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" /></svg>
+                    {/* Right Card - Profile */}
+                    <div className='form-card'>
+                        <div className='form-card__header'>
+                            <div className='form-card__title-grp'>
+                                <span className='form-card__icon icon-box--profile'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                                 </span>
-                                <p className='dropzone__title'>Click to upload or drag &amp; drop</p>
-                                <p className='dropzone__subtitle'>PDF or DOCX (Max 5MB)</p>
-                                <input
-                                    ref={resumeFileRef}
-                                    hidden type='file' id='resume' name='resume' accept='.pdf,.docx' />
-                            </label>
+                                <h2>Your Profile</h2>
+                            </div>
+                            <span className='badge badge--best'>Best Results</span>
                         </div>
 
-                        {/* OR Divider */}
-                        <div className='or-divider'><span>OR</span></div>
+                        <div className="form-card__body">
+                            {/* Upload Resume */}
+                            <div className='upload-section'>
+                                <label className='dropzone' htmlFor='resume'>
+                                    <span className='dropzone__icon'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                            <polyline points="17 8 12 3 7 8" />
+                                            <line x1="12" y1="3" x2="12" y2="15" />
+                                        </svg>
+                                    </span>
+                                    <p className='dropzone__title'>Click to upload or drag & drop</p>
+                                    <p className='dropzone__subtitle'>PDF or DOCX (Max 5MB)</p>
+                                    <input
+                                        ref={resumeFileRef}
+                                        hidden type='file' id='resume' name='resume' accept='.pdf,.docx' />
+                                </label>
+                            </div>
 
-                        {/* Quick Self-Description */}
-                        <div className='self-description'>
-                            <label className='section-label' htmlFor='selfDescription'>Quick Self-Description</label>
-                            <textarea
-                                onChange={(e) => setselfDescription(e.target.value)}
+                            <div className='or-divider'><span>OR</span></div>
 
-                                id='selfDescription'
-                                name='selfDescription'
-                                className='panel__textarea panel__textarea--short'
-                                placeholder="Briefly describe your experience, key skills, and years of experience if you don't have a resume handy..."
-                            />
-                        </div>
+                            {/* Self-Description */}
+                            <div className='self-description'>
+                                <label className='section-label' htmlFor='selfDescription'>Quick Self-Description</label>
+                                <textarea
+                                    onChange={(e) => setselfDescription(e.target.value)}
+                                    id='selfDescription'
+                                    name='selfDescription'
+                                    className='panel__textarea panel__textarea--short'
+                                    placeholder="Briefly describe your experience, key skills, and years of experience if you don't have a resume handy..."
+                                    value={selfDescription}
+                                />
+                            </div>
 
-                        {/* Info Box */}
-                        <div className='info-box'>
-                            <span className='info-box__icon'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" stroke="#1a1f27" strokeWidth="2" /><line x1="12" y1="16" x2="12.01" y2="16" stroke="#1a1f27" strokeWidth="2" /></svg>
-                            </span>
-                            <p>Either a <strong>Resume</strong> or a <strong>Self Description</strong> is required to generate a personalized plan.</p>
+                            <div className='info-box'>
+                                <span className='info-box__icon'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                </span>
+                                <p>Either a <strong>Resume</strong> or a <strong>Self Description</strong> is required to generate a personalized plan.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Card Footer */}
-                <div className='interview-card__footer'>
-                    <span className='footer-info'>AI-Powered Strategy Generation &bull; Approx 30s</span>
-                    <button
-                        onClick={handelClick}
-                        className='generate-btn'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" /></svg>
+                {/* Sticky Action Footer */}
+                <div className='action-bar'>
+                    <div className='action-bar__info'>
+                        <span className='dot'></span>
+                        AI-Powered Strategy Generation &bull; Approx 30s
+                    </div>
+                    <button onClick={handelClick} className='generate-btn-premium'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
                         Generate My Interview Strategy
                     </button>
                 </div>
-            </div>
-            {/* Recent Report List - Premium Design */}
-            {
-                reports.length > 0 && (
+
+                {/* Recent Report List */}
+                {reports.length > 0 && (
                     <div className='recent-reports'>
                         <div className='recent-reports__header'>
                             <h2>My Recent Interview Plans</h2>
-                            <span className='recent-reports__count'>{reports.length} {reports.length === 1 ? 'plan' : 'plans'}</span>
+                            <span className='recent-reports__count'>{reports.length} {reports.length === 1 ? 'plan' : 'plans'} saved</span>
                         </div>
                         <div className='reports-list'>
                             {reports.map((report, index) => (
@@ -163,21 +186,20 @@ const Home = () => {
                                             <polyline points="14 2 14 8 20 8"></polyline>
                                             <line x1="16" y1="13" x2="8" y2="13"></line>
                                             <line x1="16" y1="17" x2="8" y2="17"></line>
-                                            <polyline points="10 9 9 9 8 9"></polyline>
                                         </svg>
                                     </div>
-                                        <div className='report-card__content'>
-                                            <h3>{report.title || report.jobTitle || 'Untitled Position'}</h3>
-                                            <div className='report-card__meta'>
-                                                <span className='report-card__date'>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                                                    </svg>
-                                                    {formatDate(report)}
-                                                </span>
+                                    <div className='report-card__content'>
+                                        <h3>{report.title || report.jobTitle || 'Untitled Position'}</h3>
+                                        <div className='report-card__meta'>
+                                            <span className='report-card__date'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                </svg>
+                                                {formatDate(report)}
+                                            </span>
                                             {report.matchScore && (
                                                 <span className={`report-card__score ${report.matchScore >= 80 ? 'score--high' : report.matchScore >= 60 ? 'score--mid' : 'score--low'}`}>
                                                     {report.matchScore}% Match
@@ -186,7 +208,7 @@ const Home = () => {
                                         </div>
                                     </div>
                                     <div className='report-card__arrow'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <polyline points="9 18 15 12 9 6"></polyline>
                                         </svg>
                                     </div>
@@ -194,15 +216,18 @@ const Home = () => {
                             ))}
                         </div>
                     </div>
-                )
-            }
-            {/* Page Footer */}
-            <footer className='page-footer'>
-                <a href='#'>Privacy Policy</a>
-                <a href='#'>Terms of Service</a>
-                <a href='#'>Help Center</a>
-            </footer>
+                )}
 
+                {/* Page Footer */}
+                <footer className='page-footer'>
+                   <div className="footer-links">
+                        <a href='#'>Privacy Policy</a>
+                        <a href='#'>Terms of Service</a>
+                        <a href='#'>Help Center</a>
+                   </div>
+                   <p className="copyright">&copy; {new Date().getFullYear()} AI Interview Planner. All rights reserved.</p>
+                </footer>
+            </div>
         </main>
     )
 }
