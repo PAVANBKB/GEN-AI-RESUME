@@ -50,7 +50,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/GEN-AI-RESUME.git
+   git clone https://github.com/ritam-g/GEN-AI-RESUME.git
    cd GEN-AI-RESUME
    ```
 
