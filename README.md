@@ -1,3 +1,4 @@
+this code is done by Pavan and this Ritam has stolen it 
 # 🚀 GEN-AI RESUME
 
 **GEN-AI RESUME** is a high-performance MERN stack application designed to elevate your interview game. It leverages cutting-edge Generative AI to analyze job descriptions and resumes, providing personalized interview strategies, mock questions, and preparation roadmaps.
